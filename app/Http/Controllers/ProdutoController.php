@@ -14,7 +14,7 @@ class ProdutoController {
 
     public function listaJson() {
         $produtos = DB::select('SELECT * FROM produtos');
-        return $produtos;
+        return response()->json($produtos);
     }
 
     public function mostra() {
