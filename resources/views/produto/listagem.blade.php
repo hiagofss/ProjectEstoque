@@ -19,6 +19,11 @@
                             <i class="fas fa-search"></i>
                         </a>
                     </td>
+                    <td>
+                        <a href="/produtos/remove/{{$p->id}}">
+                            <i class="fas fa-trash-alt"></i>
+                        </a>
+                    </td>
                 </tr>
             @endforeach
         </table>

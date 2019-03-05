@@ -1,14 +1,13 @@
 <?php namespace estoque\Http\Controllers;
 
-use DB;
+use Illuminate\Support\Facades\DB;
+use estoque\Produto;
 use Request;
 
 class ProdutoController {
 
     public function lista() {
-
-        $produtos = DB::select('select * from produtos');
-
+        $produtos = Produto::all();
         return view('produto.listagem')->with('produtos', $produtos);
     }
 
@@ -19,12 +18,19 @@ class ProdutoController {
 
     public function mostra() {
         $id = Request::route('id');
-        $produto = DB::select('SELECT * FROM produtos WHERE id = ?', [$id]);
+        $produto = Produto::find($id);
 
         if (empty($produto)) {
             return "Esse produto não existe";
         }
-        return view('produto.detalhes')->with('p', $produto[0]);
+        return view('produto.detalhes')->with('p', $produto);
+    }
+
+    public function remove() {
+        $id = Request::route('id');
+        $produto = Produto::find($id);
+        $produto->delete();
+        return redirect()->action('ProdutoController@lista');
     }
 
     public function novo() {
@@ -32,15 +38,7 @@ class ProdutoController {
     }
 
     public function adiciona() {
-        $nome = Request::input('nome');
-        $valor = Request::input('valor');
-        $quantidade = Request::input('quantidade');
-        $descricao = Request::input('descricao');
-
-        DB::insert('INSERT INTO produtos (nome, quantidade, valor, descricao) values (?, ?, ?, ?)', array($nome, $quantidade, $valor, $descricao));
-
-
-
+        Produto::create(Request::all());
         return redirect()->action('ProdutoController@lista')->withInput(Request::only('nome'));
 
     }
