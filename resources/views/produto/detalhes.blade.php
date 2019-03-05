@@ -1,7 +1,6 @@
-@extends('principal')
+@extends('layout.principal')
 
 @section('conteudo')
-<div class="container">
     <h1>Detalhes do produto <?= $p->nome?></h1>
 
     <ul>
@@ -15,6 +14,4 @@
             <b>Quantidade em estoque:</b> <?= $p->quantidade ?>
         </li>
     </ul>
-</div>
-
 @stop
