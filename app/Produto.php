@@ -11,5 +11,5 @@ class Produto extends Model
     protected  $table = 'produtos';
     public $timestamps = false;
 
-    protected $fillable = array('nome', 'valor', 'quantidade', 'descricao');
+    protected $fillable = array('nome', 'valor', 'quantidade', 'descricao', 'tamanho');
 }

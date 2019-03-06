@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\DB;
 use estoque\Produto;
 use Request;
+use Validator;
 
 class ProdutoController {
 
@@ -16,8 +17,7 @@ class ProdutoController {
         return response()->json($produtos);
     }
 
-    public function mostra() {
-        $id = Request::route('id');
+    public function mostra($id) {
         $produto = Produto::find($id);
 
         if (empty($produto)) {
@@ -26,8 +26,7 @@ class ProdutoController {
         return view('produto.detalhes')->with('p', $produto);
     }
 
-    public function remove() {
-        $id = Request::route('id');
+    public function remove($id) {
         $produto = Produto::find($id);
         $produto->delete();
         return redirect()->action('ProdutoController@lista');
@@ -38,10 +37,20 @@ class ProdutoController {
     }
 
     public function adiciona() {
+
+        $validator = Validator::make(
+            ['nome'=>Request::input('nome')],
+            ['nome'=> 'required|,in3']
+        );
+
+        if ($validator->fails()) {
+            $msgs = $validator->messages();
+            dd($msgs);
+            return redirect()->action('ProdutoController@novo');
+        }
         Produto::create(Request::all());
         return redirect()->action('ProdutoController@lista')->withInput(Request::only('nome'));
 
     }
 
 }
-
