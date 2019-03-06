@@ -31,4 +31,11 @@ class ProdutoRequest extends FormRequest
             'descricao' => 'required|max:255'
         ];
     }
+
+    public function messages()
+    {
+        return [
+            'required' => 'O :attribute é obrigatório'
+        ];
+    }
 }

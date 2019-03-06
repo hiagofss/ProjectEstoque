@@ -2,6 +2,16 @@
 
 @section('conteudo')
 
+    <div class="alert alert-danger">
+        <ul>
+            @foreach($errors->all() as $error)
+                <li>{{$error}}</li>
+            @endforeach
+        </ul>
+
+    </div>
+
+
     <form class="" method="post" action="/produtos/adiciona">
         <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
