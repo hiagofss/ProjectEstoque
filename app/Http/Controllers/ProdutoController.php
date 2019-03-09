@@ -5,10 +5,15 @@ use Illuminate\Support\Facades\DB;
 use estoque\Produto;
 use Request;
 use Validator;
+use Auth;
 
 class ProdutoController {
 
     public function lista() {
+
+        if(Auth::guest()) {
+            return redirect()->action('LoginController@login');
+        }
         $produtos = Produto::all();
         return view('produto.listagem')->with('produtos', $produtos);
     }
