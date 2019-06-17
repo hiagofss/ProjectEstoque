@@ -9,11 +9,12 @@ use Auth;
 
 class ProdutoController {
 
-    public function lista() {
+//    public function __construct()
+//    {
+//        $this->middleware('auth');
+//    }
 
-        if(Auth::guest()) {
-            return redirect()->action('LoginController@login');
-        }
+    public function lista() {
         $produtos = Produto::all();
         return view('produto.listagem')->with('produtos', $produtos);
     }
